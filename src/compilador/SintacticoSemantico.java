@@ -177,6 +177,8 @@ public class SintacticoSemantico {
             emparejar("array");
             emparejar("[");
             emparejar("num");
+            emparejar("..");
+            emparejar("num");
             emparejar("]");
             emparejar("of");
             tipo_estandar();

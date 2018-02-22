@@ -216,7 +216,9 @@ public class Lexico {
    
    private Boolean EsPalabraReservada(String lex)
    {      
-       String palres[] = { "program","input","output","var","array","to","integer","real","function","procedure","begin","end","if","then","else","while","do"
+       String palres[] = { 
+           "program","input","output","var","array","of","integer","real",
+           "function","procedure","begin","end","if","then","else","while","do"
                          };
        for (int i = 0; i < palres.length; i++) {
            if (lex.equals ( palres[i] ) ) {       
