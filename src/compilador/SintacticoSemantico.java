@@ -111,95 +111,107 @@ public class SintacticoSemantico {
     //--------------------------------------------------------------------------
     //  *  *   *   *    PEGAR AQUI EL CODIGO DE LOS PROCEDURES  *  *  *  *
     //--------------------------------------------------------------------------
-    // Autor: Flor Flores Ramos
+    // Autor: Alejandro del Rio Ledesma
     private void programa() {
-        if (preAnalisis.equals("program")) {
+        if ( preAnalisis.equals( "program" ) ) {
             //programa -> program id ( input, output ) ; declaraciones declaraciones_subprogramas proposicion_compuesta
-            emparejar("program");
-            emparejar("id");
-            emparejar("(");
-            emparejar("input");
-            emparejar(",");
-            emparejar("output");
-            emparejar(")");
-            emparejar(";");
+            emparejar( "program" );
+            emparejar( "id"      );
+            emparejar( "("       );
+            emparejar( "input"   );
+            emparejar( ","       );
+            emparejar( "output"  );
+            emparejar( ")"       );
+            emparejar( ";"       );
             declaraciones();
             declaraciones_subprogramas();
             proposicion_compuesta();
-            emparejar(".");
+            emparejar( "."       );
         } else {
-            error("Se esperaba el inicio del programa (program)");
+            error( "Se esperaba el inicio del programa (program)" );
         }
     }
 
+    //--------------------------------------------------------------------------
+    // Autor: Alejandro del Rio Ledesma
     private void lista_identificadores() {
-        if (preAnalisis.equals("id")) {
+        if ( preAnalisis.equals( "id" ) ) {
             //lista_identificadores -> id lista_identificadoresP
-            emparejar("id");
+            emparejar( "id" );
             lista_identificadoresP();
         } else {
-            error("se esperaba un identificador");
+            error( "se esperaba un identificador" );
         }
     }
 
+    //--------------------------------------------------------------------------
+    // Autor: Alejandro del Rio Ledesma
     private void lista_identificadoresP() {
-        if (preAnalisis.equals(",")) {
+        if ( preAnalisis.equals( "," ) ) {
             //lista_identificadoresP -> , id lista_identificadoresP
-            emparejar(",");
-            emparejar("id");
+            emparejar( ","  );
+            emparejar( "id" );
             lista_identificadoresP();
         } else {
             //lista_identificadoresP -> empty
         }
     }
 
+    //--------------------------------------------------------------------------
+    // Autor: Alejandro del Rio Ledesma
     private void declaraciones() {
-        if (preAnalisis.equals("var")) {
+        if ( preAnalisis.equals( "var" ) ) {
             //declaraciones -> var lista_identificadores : tipo ; declaraciones
-            emparejar("var");
+            emparejar( "var" );
             lista_identificadores();
-            emparejar(":");
+            emparejar( ":"   );
             tipo();
-            emparejar(";");
+            emparejar( ";"   );
             declaraciones();
         } else {
             //declaraciones -> empty
         }
     }
 
+    //--------------------------------------------------------------------------
+    // Autor: Alejandro del Rio Ledesma
     private void tipo() {
-        if (preAnalisis.equals("integer")
-                || preAnalisis.equals("real")) {
+        if ( preAnalisis.equals( "integer" )
+                || preAnalisis.equals( "real" ) ) {
             //tipo -> tipo_estandar
             tipo_estandar();
-        } else if (preAnalisis.equals("array")) {
+        } else if ( preAnalisis.equals( "array" ) ) {
             //tipo -> array [ num..num ] of tipo_estandar
-            emparejar("array");
-            emparejar("[");
-            emparejar("num");
-            emparejar("..");
-            emparejar("num");
-            emparejar("]");
-            emparejar("of");
+            emparejar( "array" );
+            emparejar( "["     );
+            emparejar( "num"   );
+            emparejar( ".."    );
+            emparejar( "num"   );
+            emparejar( "]"     );
+            emparejar( "of"    );
             tipo_estandar();
         }
     }
 
+    //--------------------------------------------------------------------------
+    // Autor: Alejandro del Rio Ledesma
     private void tipo_estandar() {
-        if (preAnalisis.equals("integer")) {
+        if ( preAnalisis.equals( "integer" ) ) {
             //tipo_estandar -> integer
-            emparejar("integer");
-        } else if (preAnalisis.equals("real")) {
+            emparejar( "integer" );
+        } else if ( preAnalisis.equals( "real" ) ) {
             //tipo_estandar -> real
-            emparejar("real");
+            emparejar( "real" );
         } else {
-            error("se esperaba integer o real");
+            error( "se esperaba integer o real" );
         }
     }
 
+    //--------------------------------------------------------------------------
+    // Autor: Alejandro del Rio Ledesma
     private void declaraciones_subprogramas() {
-        if (preAnalisis.equals("function")
-                || preAnalisis.equals("procedure")) {
+        if ( preAnalisis.equals( "function" )
+                || preAnalisis.equals( "procedure" ) ) {
             //declaraciones_subprogramas -> declaraciones_subprogramasP
             declaraciones_subprogramasP();
         } else {
@@ -207,9 +219,11 @@ public class SintacticoSemantico {
         }
     }
 
+    //--------------------------------------------------------------------------
+    // Autor: Alejandro del Rio Ledesma
     private void declaraciones_subprogramasP() {
-        if (preAnalisis.equals("function")
-                || preAnalisis.equals("procedure")) {
+        if ( preAnalisis.equals( "function" )
+                || preAnalisis.equals( "procedure" ) ) {
             //declaraciones_subprogramasP -> declaracion_programa
             declaracion_subprograma();
         } else {
@@ -217,33 +231,36 @@ public class SintacticoSemantico {
         }
     }
 
+    
     private void declaracion_subprograma() {
-        if (preAnalisis.equals("function")
-                || preAnalisis.equals("procedure")) {
+        if ( preAnalisis.equals( "function" )
+                || preAnalisis.equals( "procedure" ) ) {
             //declaracion_subprograma -> encab_subprograma declaraciones proposicion_compuesta
             encab_subprograma();
             declaraciones();
             proposicion_compuesta();
         } else {
-            error("se esperaba function o procedure");
+            error( "se esperaba function o procedure" );
         }
     }
 
+    //--------------------------------------------------------------------------
+    // Autor: Alejandro del Rio Ledesma
     private void encab_subprograma() {
-        if (preAnalisis.equals("function")) {
+        if ( preAnalisis.equals( "function" ) ) {
             //encab_subprograma -> function id argumentos : tipo_estandar ;
-            emparejar("function");
-            emparejar("id");
+            emparejar( "function" );
+            emparejar( "id"       );
             argumentos();
-            emparejar(":");
+            emparejar( ":"        );
             tipo_estandar();
-            emparejar(";");
-        } else if (preAnalisis.equals("procedure")) {
+            emparejar( ";"        );
+        } else if ( preAnalisis.equals( "procedure" ) ) {
             //encab_subprograma -> procedure id argumentos ;
-            emparejar("procedure");
-            emparejar("id");
+            emparejar( "procedure" );
+            emparejar( "id"        );
             argumentos();
-            emparejar(";");
+            emparejar( ";"         );
         }
     }
 //---------------------------------------------------------------------------------------------------------------------------------------------------

@@ -75,7 +75,7 @@
             <Property name="columns" type="int" value="20"/>
             <Property name="lineWrap" type="boolean" value="true"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="             TECNOLOGICO NACIONAL DE MEXICO&#xa;          INSTITUTO TECNOLOGICO DE LA LAGUNA&#xa;     INGENIERIA EN SISTEMAS COMPUTACIONALES&#xa;               &quot;LENGUAJES Y AUTOMATAS II&quot;&#xa;&#xa;             Compilador de Lenguaje ____&#xa;                         Ver. 1.0.0&#xa;&#xa;                  EQUIPO DE DESARROLLO:&#xa;&#x9;&#xa;          99999999    Fulano de Tal&#xa;                     "/>
+            <Property name="text" type="java.lang.String" value="             TECNOLOGICO NACIONAL DE MEXICO&#xa;          INSTITUTO TECNOLOGICO DE LA LAGUNA&#xa;     INGENIERIA EN SISTEMAS COMPUTACIONALES&#xa;               &quot;LENGUAJES Y AUTOMATAS II&quot;&#xa;&#xa;             Compilador de Lenguaje PASCAL&#xa;                         Ver. 1.0.0&#xa;&#xa;                  EQUIPO DE DESARROLLO:&#xa;&#x9;&#xa;          12130632&#x9;Alejandro del Rio Ledesma&#xa;                     "/>
           </Properties>
         </Component>
       </SubComponents>

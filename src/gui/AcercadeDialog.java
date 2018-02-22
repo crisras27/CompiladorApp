@@ -61,7 +61,7 @@ public class AcercadeDialog extends javax.swing.JDialog {
         jtxaAcercaDe.setColumns(20);
         jtxaAcercaDe.setLineWrap(true);
         jtxaAcercaDe.setRows(5);
-        jtxaAcercaDe.setText("             TECNOLOGICO NACIONAL DE MEXICO\n          INSTITUTO TECNOLOGICO DE LA LAGUNA\n     INGENIERIA EN SISTEMAS COMPUTACIONALES\n               \"LENGUAJES Y AUTOMATAS II\"\n\n             Compilador de Lenguaje ____\n                         Ver. 1.0.0\n\n                  EQUIPO DE DESARROLLO:\n\t\n          99999999    Fulano de Tal\n                     ");
+        jtxaAcercaDe.setText("             TECNOLOGICO NACIONAL DE MEXICO\n          INSTITUTO TECNOLOGICO DE LA LAGUNA\n     INGENIERIA EN SISTEMAS COMPUTACIONALES\n               \"LENGUAJES Y AUTOMATAS II\"\n\n             Compilador de Lenguaje PASCAL\n                         Ver. 1.0.0\n\n                  EQUIPO DE DESARROLLO:\n\t\n          12130632\tAlejandro del Rio Ledesma\n                     ");
         jScrollPane1.setViewportView(jtxaAcercaDe);
 
         jbtnCerrar.setText("Cerrar");
