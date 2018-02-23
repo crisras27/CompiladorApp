@@ -28,6 +28,8 @@
  *:                                 sintactico.
  *: 08/Sep/2017 FGil                - Cambiar el token opasig por opasigna. 
  *: 20/Feb/2018 FGil                - Preparar codigo para usarlo en el sem EJ/2018
+ *: 22/02/2018  Cristopher          -Se arreglaron Errores en semantico y se 
+                                    agregaron los comentarios de las producciones
  *:----------------------------------------------------------------------------
  */
 package compilador;
@@ -376,11 +378,12 @@ public class SintacticoSemantico {
         } else if (preAnalisis.equals("(")) {
             proposicion_procedimiento();
         } else {
-
+        //proposicion’ -> empty
         }
     }
 
     private void variable() {
+        //variable -> [ expresion ]  
         if (preAnalisis.equals("[")) {
             emparejar("[");
             expresion();
@@ -389,22 +392,25 @@ public class SintacticoSemantico {
     }
 
     private void proposicion_procedimiento() {
+        //proposicion_procedimiento -> proposicion_procedimiento’
         if (preAnalisis.equals("(")) {
             proposicion_procedimientoP();
         }
     }
 
     private void proposicion_procedimientoP() {
+        //proposicion_procedimiento’ -> ( lista_expresiones ) 
         if (preAnalisis.equals("(")) {
             emparejar("(");
             lista_expresiones();
             emparejar(")");
         } else {
-
+        //proposicion_procedimiento’ -> empty
         }
     }
 
     private void lista_expresiones() {
+        //lista_expresiones -> expresion lista_expresiones’
         if (preAnalisis.equals("id") || preAnalisis.equals("num")
                 || preAnalisis.equals("num.num") || preAnalisis.equals("(")) {
             expresion();
@@ -413,15 +419,17 @@ public class SintacticoSemantico {
     }
 
     private void lista_expresionesP() {
+        //lista_expresiones’ -> ,  lista_expresiones
         if (preAnalisis.equals(",")) {
             emparejar(",");
             lista_expresiones();
         } else {
-
+        //lista_expresion -> empty
         }
     }
 
     private void expresion() {
+        //expresion -> expresion_simple  expresion’ 
         if (preAnalisis.equals("id") || preAnalisis.equals("num")
                 || preAnalisis.equals("num.num") || preAnalisis.equals("(")) {
             expresion_simple();
@@ -433,15 +441,17 @@ public class SintacticoSemantico {
     }
 
     private void expresionP() {
+        //expresion’ -> oprel expresion_simple
         if (preAnalisis.equals("oprel")) {
             emparejar("oprel");
             expresion_simple();
         } else {
-
+        //expresion' -> empty
         }
     }
 
     private void expresion_simple() {
+        //expresion_simple -> termino  expresion_simple’ 
         if (preAnalisis.equals("id") || preAnalisis.equals("num")
                 || preAnalisis.equals("num.num") || preAnalisis.equals("(")) {
             termino();
@@ -450,16 +460,18 @@ public class SintacticoSemantico {
     }
 
     private void expresion_simpleP() {
+        //expresion_simple’ -> opsuma termino expresion_simple’ 
         if (preAnalisis.equals("opsuma")) {
             emparejar("opsuma");
             termino();
             expresion_simpleP();
         } else {
-
+        //expresion_simple' -> empty
         }
     }
 
     private void termino() {
+        //termino -> factor   termino’ 
         if ( preAnalisis.equals("id") || preAnalisis.equals("num")
                 || preAnalisis.equals("num.num") || preAnalisis.equals("(") ) {
             factor();
@@ -468,17 +480,19 @@ public class SintacticoSemantico {
     }
 
     private void terminoP() {
+        //termino’ -> opmult   factor   termino’ 
         if (preAnalisis.equals("opmult")) {
             emparejar("opmult");
             factor();
             terminoP();
 
         } else {
-
+        //termino’ -> empty
         }
     }
 
     private void factor() {
+        //factor -> id  factor’ | num | num.num  |  ( expresion )  
         if (preAnalisis.equals("id")) {
             emparejar("id");
             factorP();
@@ -494,12 +508,13 @@ public class SintacticoSemantico {
     }
 
     private void factorP() {
+        //factor’ -> ( lista_expresiones )
         if (preAnalisis.equals("(")) {
             emparejar("(");
             lista_expresiones();
             emparejar(")");
         } else {
-
+        //factor' -> empty
         }
     }
 
