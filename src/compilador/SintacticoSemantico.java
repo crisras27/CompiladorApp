@@ -58,7 +58,7 @@ public class SintacticoSemantico {
         preAnalisis = cmp.be.preAnalisis.complex;
 
         // * * *   INVOCAR AQUI EL PROCEDURE DEL SIMBOLO INICIAL   * * *
-        programa ();
+        programa();
     }
 
     //--------------------------------------------------------------------------
@@ -113,44 +113,44 @@ public class SintacticoSemantico {
     //--------------------------------------------------------------------------
     // Autor: Alejandro del Rio Ledesma
     private void programa() {
-        if ( preAnalisis.equals( "program" ) ) {
+        if (preAnalisis.equals("program")) {
             //programa -> program id ( input, output ) ; declaraciones declaraciones_subprogramas proposicion_compuesta
-            emparejar( "program" );
-            emparejar( "id"      );
-            emparejar( "("       );
-            emparejar( "input"   );
-            emparejar( ","       );
-            emparejar( "output"  );
-            emparejar( ")"       );
-            emparejar( ";"       );
+            emparejar("program");
+            emparejar("id");
+            emparejar("(");
+            emparejar("input");
+            emparejar(",");
+            emparejar("output");
+            emparejar(")");
+            emparejar(";");
             declaraciones();
             declaraciones_subprogramas();
             proposicion_compuesta();
-            emparejar( "."       );
+            emparejar(".");
         } else {
-            error( "Se esperaba el inicio del programa (program)" );
+            error("Se esperaba el inicio del programa (program)");
         }
     }
 
     //--------------------------------------------------------------------------
     // Autor: Alejandro del Rio Ledesma
     private void lista_identificadores() {
-        if ( preAnalisis.equals( "id" ) ) {
+        if (preAnalisis.equals("id")) {
             //lista_identificadores -> id lista_identificadoresP
-            emparejar( "id" );
+            emparejar("id");
             lista_identificadoresP();
         } else {
-            error( "se esperaba un identificador" );
+            error("se esperaba un identificador");
         }
     }
 
     //--------------------------------------------------------------------------
     // Autor: Alejandro del Rio Ledesma
     private void lista_identificadoresP() {
-        if ( preAnalisis.equals( "," ) ) {
+        if (preAnalisis.equals(",")) {
             //lista_identificadoresP -> , id lista_identificadoresP
-            emparejar( ","  );
-            emparejar( "id" );
+            emparejar(",");
+            emparejar("id");
             lista_identificadoresP();
         } else {
             //lista_identificadoresP -> empty
@@ -160,13 +160,13 @@ public class SintacticoSemantico {
     //--------------------------------------------------------------------------
     // Autor: Alejandro del Rio Ledesma
     private void declaraciones() {
-        if ( preAnalisis.equals( "var" ) ) {
+        if (preAnalisis.equals("var")) {
             //declaraciones -> var lista_identificadores : tipo ; declaraciones
-            emparejar( "var" );
+            emparejar("var");
             lista_identificadores();
-            emparejar( ":"   );
+            emparejar(":");
             tipo();
-            emparejar( ";"   );
+            emparejar(";");
             declaraciones();
         } else {
             //declaraciones -> empty
@@ -176,19 +176,19 @@ public class SintacticoSemantico {
     //--------------------------------------------------------------------------
     // Autor: Alejandro del Rio Ledesma
     private void tipo() {
-        if ( preAnalisis.equals( "integer" )
-                || preAnalisis.equals( "real" ) ) {
+        if (preAnalisis.equals("integer")
+                || preAnalisis.equals("real")) {
             //tipo -> tipo_estandar
             tipo_estandar();
-        } else if ( preAnalisis.equals( "array" ) ) {
+        } else if (preAnalisis.equals("array")) {
             //tipo -> array [ num..num ] of tipo_estandar
-            emparejar( "array" );
-            emparejar( "["     );
-            emparejar( "num"   );
-            emparejar( ".."    );
-            emparejar( "num"   );
-            emparejar( "]"     );
-            emparejar( "of"    );
+            emparejar("array");
+            emparejar("[");
+            emparejar("num");
+            emparejar("..");
+            emparejar("num");
+            emparejar("]");
+            emparejar("of");
             tipo_estandar();
         }
     }
@@ -196,22 +196,22 @@ public class SintacticoSemantico {
     //--------------------------------------------------------------------------
     // Autor: Alejandro del Rio Ledesma
     private void tipo_estandar() {
-        if ( preAnalisis.equals( "integer" ) ) {
+        if (preAnalisis.equals("integer")) {
             //tipo_estandar -> integer
-            emparejar( "integer" );
-        } else if ( preAnalisis.equals( "real" ) ) {
+            emparejar("integer");
+        } else if (preAnalisis.equals("real")) {
             //tipo_estandar -> real
-            emparejar( "real" );
+            emparejar("real");
         } else {
-            error( "se esperaba integer o real" );
+            error("se esperaba integer o real");
         }
     }
 
     //--------------------------------------------------------------------------
     // Autor: Alejandro del Rio Ledesma
     private void declaraciones_subprogramas() {
-        if ( preAnalisis.equals( "function" )
-                || preAnalisis.equals( "procedure" ) ) {
+        if (preAnalisis.equals("function")
+                || preAnalisis.equals("procedure")) {
             //declaraciones_subprogramas -> declaraciones_subprogramasP
             declaraciones_subprogramasP();
         } else {
@@ -222,56 +222,57 @@ public class SintacticoSemantico {
     //--------------------------------------------------------------------------
     // Autor: Alejandro del Rio Ledesma
     private void declaraciones_subprogramasP() {
-        if ( preAnalisis.equals( "function" )
-                || preAnalisis.equals( "procedure" ) ) {
-            //declaraciones_subprogramasP -> declaracion_programa
+        if (preAnalisis.equals("function")
+                || preAnalisis.equals("procedure")) {
+            //declaraciones_subprogramasP -> declaracion_subprograma ; declaraciones_subprogramaP
             declaracion_subprograma();
+            emparejar(";");
+            declaraciones_subprogramasP();
         } else {
             //declaraciones_subprogramasP -> empty
         }
     }
 
-    
     private void declaracion_subprograma() {
-        if ( preAnalisis.equals( "function" )
-                || preAnalisis.equals( "procedure" ) ) {
+        if (preAnalisis.equals("function")
+                || preAnalisis.equals("procedure")) {
             //declaracion_subprograma -> encab_subprograma declaraciones proposicion_compuesta
             encab_subprograma();
             declaraciones();
             proposicion_compuesta();
         } else {
-            error( "se esperaba function o procedure" );
+            error("se esperaba function o procedure");
         }
     }
 
     //--------------------------------------------------------------------------
     // Autor: Alejandro del Rio Ledesma
     private void encab_subprograma() {
-        if ( preAnalisis.equals( "function" ) ) {
+        if (preAnalisis.equals("function")) {
             //encab_subprograma -> function id argumentos : tipo_estandar ;
-            emparejar( "function" );
-            emparejar( "id"       );
+            emparejar("function");
+            emparejar("id");
             argumentos();
-            emparejar( ":"        );
+            emparejar(":");
             tipo_estandar();
-            emparejar( ";"        );
-        } else if ( preAnalisis.equals( "procedure" ) ) {
+            emparejar(";");
+        } else if (preAnalisis.equals("procedure")) {
             //encab_subprograma -> procedure id argumentos ;
-            emparejar( "procedure" );
-            emparejar( "id"        );
+            emparejar("procedure");
+            emparejar("id");
             argumentos();
-            emparejar( ";"         );
+            emparejar(";");
         }
     }
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------20/02/2018------------------------------------------------------------------------------------------------
 
     private void argumentos() {
-        if (preAnalisis.equals(" ( ")) {
+        if (preAnalisis.equals("(")) {
             //argumentos -> ( lista_parametros ) 
-            emparejar(" ( ");
+            emparejar("(");
             lista_parametros();
-            emparejar(" ) ");
+            emparejar(")");
         } else {
             //argumentos ->empty
         }
@@ -279,10 +280,12 @@ public class SintacticoSemantico {
 
     private void lista_parametros() {
         //lista_parametros -> lista_identificadores  :  tipo  lista_parametros’
-        lista_identificadores();
-        emparejar(":");
-        tipo();
-        lista_parametrosP();
+        if (preAnalisis.equals("id")) {
+            lista_identificadores();
+            emparejar(":");
+            tipo();
+            lista_parametrosP();
+        }
     }
 
     private void lista_parametrosP() {
@@ -370,7 +373,7 @@ public class SintacticoSemantico {
         } else if (preAnalisis.equals("opasigna")) {
             emparejar("opasigna");
             expresion();
-        } else if (preAnalisis.equals("{")) {
+        } else if (preAnalisis.equals("(")) {
             proposicion_procedimiento();
         } else {
 
@@ -402,16 +405,8 @@ public class SintacticoSemantico {
     }
 
     private void lista_expresiones() {
-        if (preAnalisis.equals("id")) {
-            expresion();
-            lista_expresionesP();
-        } else if (preAnalisis.equals("num")) {
-            expresion();
-            lista_expresionesP();
-        } else if (preAnalisis.equals("num.num")) {
-            expresion();
-            lista_expresionesP();
-        } else if (preAnalisis.equals("(")) {
+        if (preAnalisis.equals("id") || preAnalisis.equals("num")
+                || preAnalisis.equals("num.num") || preAnalisis.equals("(")) {
             expresion();
             lista_expresionesP();
         }
@@ -427,18 +422,13 @@ public class SintacticoSemantico {
     }
 
     private void expresion() {
-        if (preAnalisis.equals("id")) {
+        if (preAnalisis.equals("id") || preAnalisis.equals("num")
+                || preAnalisis.equals("num.num") || preAnalisis.equals("(")) {
             expresion_simple();
             expresionP();
-        } else if (preAnalisis.equals("num")) {
-            expresion_simple();
-            expresionP();
-        } else if (preAnalisis.equals("num.num")) {
-            expresion_simple();
-            expresionP();
-        } else if (preAnalisis.equals("(")) {
-            expresion_simple();
-            expresionP();
+        }
+        else{
+            error("se esperaba id , num, num.num O (");
         }
     }
 
@@ -452,16 +442,8 @@ public class SintacticoSemantico {
     }
 
     private void expresion_simple() {
-        if (preAnalisis.equals("id")) {
-            termino();
-            expresion_simpleP();
-        } else if (preAnalisis.equals("num")) {
-            termino();
-            expresion_simpleP();
-        } else if (preAnalisis.equals("num.num")) {
-            termino();
-            expresion_simpleP();
-        } else if (preAnalisis.equals("(")) {
+        if (preAnalisis.equals("id") || preAnalisis.equals("num")
+                || preAnalisis.equals("num.num") || preAnalisis.equals("(")) {
             termino();
             expresion_simpleP();
         }
@@ -478,51 +460,46 @@ public class SintacticoSemantico {
     }
 
     private void termino() {
-         if (preAnalisis.equals("id")) {
-             factor();
-             terminoP();
-        } else if (preAnalisis.equals("num")) {
+        if ( preAnalisis.equals("id") || preAnalisis.equals("num")
+                || preAnalisis.equals("num.num") || preAnalisis.equals("(") ) {
             factor();
             terminoP();
-        } else if (preAnalisis.equals("num.num")) {
-            factor();
-             terminoP();
-        } else if (preAnalisis.equals("(")) {
-            factor();
-             terminoP();
         }
     }
-    private void terminoP(){
+
+    private void terminoP() {
         if (preAnalisis.equals("opmult")) {
             emparejar("opmult");
             factor();
             terminoP();
-            
-        }else{
-            
+
+        } else {
+
         }
     }
-    private void factor(){
-        if(preAnalisis.equals("id")){
+
+    private void factor() {
+        if (preAnalisis.equals("id")) {
             emparejar("id");
             factorP();
-        }else if (preAnalisis.equals("num")) {
+        } else if (preAnalisis.equals("num")) {
             emparejar("num");
-        }else if(preAnalisis.equals("num.num")){
+        } else if (preAnalisis.equals("num.num")) {
             emparejar("num.num");
-        }else if (preAnalisis.equals("(")) {
+        } else if (preAnalisis.equals("(")) {
             emparejar("(");
             expresion();
             emparejar(")");
         }
     }
-    private void factorP(){
-        if(preAnalisis.equals("(")){
+
+    private void factorP() {
+        if (preAnalisis.equals("(")) {
             emparejar("(");
             lista_expresiones();
             emparejar(")");
-        }else{
-            
+        } else {
+
         }
     }
 
